@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using OpenTelemetry.Metrics;
+using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using SADC_Order_Management_System.Authorization;
 using SADC_Order_Management_System.Configurations;
 using SADC_Order_Management_System.Infrastructure.Data;
@@ -54,8 +57,10 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHealthChecks()
+    .AddSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 
-builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
+
 
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService("SADC_Order_Management_System"))
