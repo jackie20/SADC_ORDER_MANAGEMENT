@@ -143,3 +143,11 @@ docker run -d --hostname sadc-rabbit --name sadc-rabbitmq \
   -p 5672:5672 \
   -p 15672:15672 \
   rabbitmq:3-management
+
+
+Create these GitHub secrets before running it:
+
+AZURE_CLIENT_ID
+AZURE_TENANT_ID
+AZURE_SUBSCRIPTION_ID
+AZURE_WEBAPP_NAME
